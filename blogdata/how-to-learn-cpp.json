@@ -1,0 +1,6 @@
+{
+  "title": "How to learn Cpp Js",
+  "content": "Cpp.js is a React framework that enables several extra features, including server-side rendering and generating static websites. React is a JavaScript library that is traditionally used to build web applications rendered in the client's browser with JavaScript. Developers recognize several problems with this strategy however, such as not catering to users who do not have access to JavaScript or have disabled it, potential security issues, significantly extended page loading times, and harm to the site's overall search engine optimization. Frameworks such as Cpp.js sidestep these problems by allowing some or all of the website to be rendered on the server-side before being sent to the client. Cpp.js is one of the most popular frameworks for React.",
+  "author": "John Doe",
+  "slug": "how-to-learn-cpp"
+}
