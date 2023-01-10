@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [blogs, setBlogs] = useState([])
   const getBlogs = async () => {
-    const d = await fetch("http://localhost:3000/api/blogs?count=2");
+    const d = await fetch("http://localhost:3000/api/blogs?count=4");
     const data = await d.json();
     setBlogs(data.files)
   }

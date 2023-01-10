@@ -1,17 +1,21 @@
 import Head from "next/head";
 import React from "react";
 import styles from "../../styles/Blogpost.module.css";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 const slug = () => {
-  const [blog, setBlog] = useState({})
-  const getBlog =async () => {
+  const [blog, setBlog] = useState({});
+  const router = useRouter();
+  const getBlog = async () => {
+    const slug = router.query.slug;
     const d = await fetch(`http://localhost:3000/api/getblogs?slug=${slug}`);
     const data = await d.json();
-    setBlog(data)
-  }
-  useEffect(()=>{
-
-  },[])
+    setBlog(data);
+  };
+  useEffect(() => {
+    if (!router.isReady) return;
+    getBlog();
+  }, [router.isReady]);
   return (
     <div className={styles.container}>
       <Head>
