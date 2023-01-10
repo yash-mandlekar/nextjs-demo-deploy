@@ -19,11 +19,14 @@ const blog = () => {
     console.log(data);
     setBlogs(data.files);
   };
-  useEffect(() => {
+  const getBlogs = async () => {
     const d = await fetch("http://localhost:3000/api/blogs?count=2");
     const data = await d.json();
     setBlogs(data.files)
     setLength(data.length)
+  }
+  useEffect(() => {
+    getBlogs();
   }, [])
   return (
     <main className={styles.main}>

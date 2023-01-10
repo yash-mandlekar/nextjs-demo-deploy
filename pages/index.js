@@ -3,11 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
+import { useState, useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ allblogs }) {
-  console.log(allblogs);
+export default function Home() {
+  const [blogs, setBlogs] = useState([])
+  const getBlogs = async () => {
+    const d = await fetch("http://localhost:3000/api/blogs?count=2");
+    const data = await d.json();
+    setBlogs(data.files)
+  }
+  useEffect(() => {
+    getBlogs();
+  }, [])
   return (
     <>
       <Head>
@@ -32,7 +41,7 @@ export default function Home({ allblogs }) {
         </div>
         <h2 className={inter.className}>Popular Blogs</h2>
         <div className={styles.grid}>
-          {allblogs?.slice(0, 4).map((e, i) => (
+          {blogs?.slice(0, 4).map((e, i) => (
             <div key={i} className={styles.card}>
               <Link href={`/blogpost/${e.slug}`} className={inter.className}>
                 {e.title}
@@ -45,11 +54,4 @@ export default function Home({ allblogs }) {
     </>
   );
 }
-export async function getServerSideProps(context) {
-  const d = await fetch("http://localhost:3000/api/blogs?count=4");
-  const data = await d.json();
-  console.log(data);
-  return {
-    props: { allblogs:data.files },
-  };
-}
+

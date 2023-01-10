@@ -1,7 +1,17 @@
 import Head from "next/head";
 import React from "react";
 import styles from "../../styles/Blogpost.module.css";
-const slug = ({ blog }) => {
+import { useEffect,useState } from "react";
+const slug = () => {
+  const [blog, setBlog] = useState({})
+  const getBlog =async () => {
+    const d = await fetch(`http://localhost:3000/api/getblogs?slug=${slug}`);
+    const data = await d.json();
+    setBlog(data)
+  }
+  useEffect(()=>{
+
+  },[])
   return (
     <div className={styles.container}>
       <Head>
@@ -17,12 +27,4 @@ const slug = ({ blog }) => {
     </div>
   );
 };
-export async function getServerSideProps(context) {
-  const { slug } = context.query;
-  const d = await fetch(`http://localhost:3000/api/getblogs?slug=${slug}`);
-  const blog = await d.json();
-  return {
-    props: { blog },
-  };
-}
 export default slug;
