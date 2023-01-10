@@ -6,9 +6,10 @@ import styles from "../styles/Home.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 const inter = Inter({ subsets: ["latin"] });
 
-const blog = ({ allBlogs, length }) => {
-  const [blogs, setBlogs] = useState(allBlogs);
+const blog = () => {
+  const [blogs, setBlogs] = useState([]);
   const [count, setCount] = useState(2);
+  const [length, setLength] = useState(0);
   const fetchBlogs = async () => {
     const d = await fetch(
       `http://localhost:3000/api/blogs/?count=${count + 4}`
@@ -18,7 +19,12 @@ const blog = ({ allBlogs, length }) => {
     console.log(data);
     setBlogs(data.files);
   };
-
+  useEffect(() => {
+    const d = await fetch("http://localhost:3000/api/blogs?count=2");
+    const data = await d.json();
+    setBlogs(data.files)
+    setLength(data.length)
+  }, [])
   return (
     <main className={styles.main}>
       <Head>
@@ -52,11 +58,5 @@ const blog = ({ allBlogs, length }) => {
     </main>
   );
 };
-export async function getServerSideProps(context) {
-  const d = await fetch("http://localhost:3000/api/blogs?count=2");
-  const data = await d.json();
-  return {
-    props: { allBlogs: data.files, length: data.length },
-  };
-}
+
 export default blog;
